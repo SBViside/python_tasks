@@ -1,44 +1,37 @@
-from random import randint
+from random import randint   # TTT V2
 
 class GameField:
-	victory_combs = ((1, 2, 3), (3, 4, 5), (6, 7, 8), (0, 3, 6), 
-					(1, 4, 7), (2, 5, 8), (0, 4, 6), (2, 4, 6))  
+    victory_combs = ((1, 2, 3), (3, 4, 5), (6, 7, 8), (0, 3, 6), 
+                    (1, 4, 7), (2, 5, 8), (0, 4, 6), (2, 4, 6))  
 
-	FIELD = [' ' for i in range(8)]
+    FIELD = [' ' for i in range(9)]
 
-	print_field(self):
-		print('\n\t {} | {} | {}\n\t '.format(arg[0], arg[1], arg[2]) + '-' * 9)
-    	print('\t {} | {} | {}\n\t '.format(arg[3], arg[4], arg[5]) + '-' * 9)
-    	print('\t {} | {} | {}\n\t'.format(arg[6], arg[7], arg[8]))
+    def add_value(self, index, value='X'):
+        self.FIELD[index] = value
 
+    def comparisons(self):
+        pass                       # ! НАПИСАТЬ МЕТОД ДЛЯ СРАВНЕНИЯ
 
+    def print_test_field(self):
+        print('\n\t\t 0 | 1 | 2\n\t\t ' + '-' * 9)
+        print('\t\t 3 | 4 | 5\n\t\t ' + '-' * 9)
+        print('\t\t 6 | 7 | 8\n\t\t')
 
-"""
-def print_field(arg):
-    print('\n\t {} | {} | {}\n\t '.format(arg[0], arg[1], arg[2]) + '-' * 9)
-    print('\t {} | {} | {}\n\t '.format(arg[3], arg[4], arg[5]) + '-' * 9)
-    print('\t {} | {} | {}\n\t'.format(arg[6], arg[7], arg[8]))
+    def print_field(self):
+        print('\n\t\t {} | {} | {}\n\t\t '.format(self.FIELD[0], self.FIELD[1], self.FIELD[2]) + '-' * 9)
+        print('\t\t {} | {} | {}\n\t\t '.format(self.FIELD[3], self.FIELD[4], self.FIELD[5]) + '-' * 9)
+        print('\t\t {} | {} | {}\n\t\t'.format(self.FIELD[6], self.FIELD[7], self.FIELD[8]))
 
-def comparisons(listf, tuplef):  # алгоритм для сравнения победных комбинаций с текущими
-    local_list_X = []
-    local_list_O = []
+# ЗДЕСЬ НАЧИНАЕТСЯ ТЕЛО ОСНОВНОЙ ПРОГРАММЫ
 
-    for i in range(len(listf)):
-        if listf[i] == 'X':
-            local_list_X.append(i)
-        elif listf[i] == 'O':
-            local_list_O.append(i)
+GField = GameField()
 
-    for item in tuplef:
-        local_count_X = 0
-        local_count_O = 0
-        for initem in item:
-            if initem in local_list_X:
-                local_count_X += 1
-                if local_count_X == 3:
-                    return 1
-            if initem in local_list_O:
-                local_count_O += 1
-                if local_count_O == 3:
-                    return 2
-"""
+print('\n\t::::::КРЕСТИКИ-НОЛИКИ::::::\nНиже указана нумерация клеток игрового поля:')
+GField.print_test_field()
+
+while True:
+    x_or_o = input('Хотите начать первым? (y/n): ')
+    if x_or_o == 'y' or x_or_o == 'n':
+        break
+
+GField.print_field()
