@@ -1,8 +1,8 @@
 from random import randint   # TTT V2
 
 class GameField:
-    victory_combs = ((1, 2, 3), (3, 4, 5), (6, 7, 8), (0, 3, 6), 
-                    (1, 4, 7), (2, 5, 8), (0, 4, 6), (2, 4, 6))  
+    victory_combs = ((0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), 
+                    (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6))  
 
     FIELD = [' ' for i in range(9)]
 
@@ -14,24 +14,25 @@ class GameField:
         for i in range(len(self.FIELD)):
             if self.FIELD[i] == value:
                 local_count.append(i)
-                for l1 in self.victory_combs:
-                    k = 0
-                    for l2 in l1:
-                        if l2 in local_count:
-                            k += 1
-                            if k == 3:
-                                return 1
+
+        for item in self.victory_combs:
+            k = 0
+            for i in item:
+                if i in local_count:
+                    k += 1
+                    if k == 3:
+                        return 1
 
     def comp_tie(self):
         k = 0
         for i in self.FIELD:
-            if i == ' ':
+            if i == 'X' or i == 'O':
                 k += 1
-                if k == 0:
+                if k == 9:
                     return 1
 
 
-    def comparisons(self):                   # ! НАПИСАТЬ МЕТОД ДЛЯ СРАВНЕНИЯ
+    def comparisons(self):
         if self.comp_alg('X') == 1:
             return 1
         if self.comp_alg('O') == 1:
@@ -77,11 +78,11 @@ if x_or_o == 'y':
 
         if GField.comparisons() == 1:
             GField.print_field()
-            print('\nВы победили! Поздравляю!')
+            print('Вы победили! Поздравляю!\n')
             break
         elif GField.comparisons() == 3:
             GField.print_field()
-            print('\nНичья!!!')
+            print('Ничья!!!\n')
             break
 
         while True:
@@ -94,11 +95,11 @@ if x_or_o == 'y':
 
         if GField.comparisons() == 2:
             GField.print_field()
-            print('\nВы проиграли...')
+            print('Вы проиграли...\n')
             break
         elif GField.comparisons() == 3:
             GField.print_field()
-            print('\nНичья!!!')
+            print('Ничья!!!\n')
             break
 
 elif x_or_o == 'n':
@@ -114,11 +115,11 @@ elif x_or_o == 'n':
 
         if GField.comparisons() == 1:
             GField.print_field()
-            print('\nВы проиграли...')
+            print('Вы проиграли...\n')
             break
         elif GField.comparisons() == 3:
             GField.print_field()
-            print('\nНичья!!!')
+            print('Ничья!!!\n')
             break
 
         GField.print_field()
@@ -132,9 +133,9 @@ elif x_or_o == 'n':
 
         if GField.comparisons() == 2:
             GField.print_field()
-            print('\nВы победили! Поздравляю!')
+            print('Вы победили! Поздравляю!\n')
             break
         elif GField.comparisons() == 3:
             GField.print_field()
-            print('\nНичья!!!')
+            print('Ничья!!!\n')
             break
