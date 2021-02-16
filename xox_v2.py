@@ -9,8 +9,36 @@ class GameField:
     def add_value(self, index, value='X'):
         self.FIELD[index] = value
 
-    def comparisons(self):
-        pass                       # ! НАПИСАТЬ МЕТОД ДЛЯ СРАВНЕНИЯ
+    def comp_alg(self, value='X'):
+        local_count = []
+        for i in range(len(self.FIELD)):
+            if self.FIELD[i] == value:
+                local_count.append(i)
+                for l1 in self.victory_combs:
+                    k = 0
+                    for l2 in l1:
+                        if l2 in local_count:
+                            k += 1
+                            if k == 3:
+                                return 1
+
+    def comp_tie(self):
+        k = 0
+        for i in self.FIELD:
+            if i == ' ':
+                k += 1
+                if k == 0:
+                    return 1
+
+
+    def comparisons(self):                   # ! НАПИСАТЬ МЕТОД ДЛЯ СРАВНЕНИЯ
+        if self.comp_alg('X') == 1:
+            return 1
+        if self.comp_alg('O') == 1:
+            return 2
+        if self.comp_tie() == 1:
+            return 3
+
 
     def print_test_field(self):
         print('\n\t\t 0 | 1 | 2\n\t\t ' + '-' * 9)
@@ -29,9 +57,84 @@ GField = GameField()
 print('\n\t::::::КРЕСТИКИ-НОЛИКИ::::::\nНиже указана нумерация клеток игрового поля:')
 GField.print_test_field()
 
-while True:
+while True:                                                  # ЗДЕСЬ МОЖНО ВЫБРАТЬ ЗА КОГО ИГРАТЬ
     x_or_o = input('Хотите начать первым? (y/n): ')
     if x_or_o == 'y' or x_or_o == 'n':
         break
 
-GField.print_field()
+if x_or_o == 'y':
+    check = []
+    while True:
+
+        GField.print_field()
+        while True:
+            turn = int(input('Введите номер ячейки: '))
+            if turn not in check:
+                break
+
+        check.append(turn)
+        GField.add_value(turn, 'X')
+
+        if GField.comparisons() == 1:
+            GField.print_field()
+            print('\nВы победили! Поздравляю!')
+            break
+        elif GField.comparisons() == 3:
+            GField.print_field()
+            print('\nНичья!!!')
+            break
+
+        while True:
+            comp_turn = randint(0,8)
+            if comp_turn not in check:
+                break
+
+        check.append(comp_turn)     
+        GField.add_value(comp_turn, 'O')
+
+        if GField.comparisons() == 2:
+            GField.print_field()
+            print('\nВы проиграли...')
+            break
+        elif GField.comparisons() == 3:
+            GField.print_field()
+            print('\nНичья!!!')
+            break
+
+elif x_or_o == 'n':
+    check = []
+    while True:
+        while True:
+            comp_turn = randint(0,8)
+            if comp_turn not in check:
+                break
+
+        check.append(comp_turn)     
+        GField.add_value(comp_turn, 'X')
+
+        if GField.comparisons() == 1:
+            GField.print_field()
+            print('\nВы проиграли...')
+            break
+        elif GField.comparisons() == 3:
+            GField.print_field()
+            print('\nНичья!!!')
+            break
+
+        GField.print_field()
+        while True:
+            turn = int(input('Введите номер ячейки: '))
+            if turn not in check:
+                break
+
+        check.append(turn)
+        GField.add_value(turn, 'O')
+
+        if GField.comparisons() == 2:
+            GField.print_field()
+            print('\nВы победили! Поздравляю!')
+            break
+        elif GField.comparisons() == 3:
+            GField.print_field()
+            print('\nНичья!!!')
+            break

@@ -1,6 +1,6 @@
 from random import randint                          #tic-tac-toe
                                                     #ПРИСУТСТВУЮТ НЕДОРАБОТКИ
-def print_test_field():                             #ПЕРЕДЕЛАТЬ КОГДА БУДЕТ ВРЕМЯ
+def print_test_field():                             #ПЕРЕДЕЛАТЬ КОГДА БУДЕТ ВРЕМЯ (ПЕРЕДЕЛАНО! in xox_v2.py)
     print('\n\t 0 | 1 | 2\n\t ' + '-' * 9)
     print('\t 3 | 4 | 5\n\t ' + '-' * 9)
     print('\t 6 | 7 | 8\n\t')
