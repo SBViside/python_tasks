@@ -31,7 +31,6 @@ class GameField:
                 if k == 9:
                     return 1
 
-
     def comparisons(self):
         if self.comp_alg('X') == 1:
             return 1
@@ -39,7 +38,6 @@ class GameField:
             return 2
         if self.comp_tie() == 1:
             return 3
-
 
     def print_test_field(self):
         print('\n\t\t 0 | 1 | 2\n\t\t ' + '-' * 9)
@@ -69,9 +67,12 @@ if x_or_o == 'y':
 
         GField.print_field()
         while True:
-            turn = int(input('Введите номер ячейки: '))
-            if turn not in check:
-                break
+            try:
+                turn = int(input('Введите номер ячейки: '))
+                if (turn not in check) and (turn <= 8 and turn >= 0):
+                    break
+            except Exception:
+                print('Неверное значение!')
 
         check.append(turn)
         GField.add_value(turn, 'X')
@@ -124,9 +125,12 @@ elif x_or_o == 'n':
 
         GField.print_field()
         while True:
-            turn = int(input('Введите номер ячейки: '))
-            if turn not in check:
-                break
+            try:
+                turn = int(input('Введите номер ячейки: '))
+                if (turn not in check) and (turn <= 8 and turn >= 0):
+                    break
+            except Exception:
+                print('Неверное значение!')
 
         check.append(turn)
         GField.add_value(turn, 'O')
