@@ -9,41 +9,69 @@ def print_word(*wrd, char=None, lst=[]):
             main_answer += '_'
     return main_answer
 
-words_tuple = ('python', 'computer', 'desktop', 'laptop', 'keyboard', 'mouse', 'internet', 'touchpad', 'windows', 'linux',)
-WORD = words_tuple[randint(0,9)]
+words_list = [  'python', 
+                'computer', 
+                'desktop', 
+                'laptop', 
+                'keyboard', 
+                'mouse', 
+                'internet', 
+                'touchpad', 
+                'windows', 
+                'linux',    ]
+
+WORD = words_list[randint(0,len(words_list))]
 
 right_list = []
 
-input('\nИГРА: Угадай слово\nУ тебя 10 попыток\nНажми ENTER чтобы начать...')
+input('\nИГРА: Угадай слова\nУ тебя 10 попыток на каждое слово\nНажми ENTER чтобы начать...')
 
-l = 10
+k = len(words_list)
 
-print('\nСлово из {} букв: \n'.format(len(WORD)), print_word(*WORD).replace('', ' ').strip())
+def main_game(nm):
 
-while True:
-    if l != 0:
-        char1 = input('\nВведите символ: ')
+    global right_list
+    global WORD
+    global words_list
 
-        if 0 < len(char1) < 2:
+    print('\nСлово из {} букв: \n'.format(len(WORD)), print_word(*WORD).replace('', ' ').strip())
 
-            if char1 in WORD:
-                print('\nПравильно!')
+    l = 10
 
-                right_list.append(char1)
-                print(print_word(*WORD, char=char1, lst=right_list).replace('', ' ').strip())
+    while True:
+        if l != 0:
+            char1 = input('\nВведите символ: ')
 
-                if print_word(*WORD, char=char1, lst=right_list) == WORD:
-                    print('\nПоздравляю! Ты победил!\n')
-                    break
+            if 0 < len(char1) < 2:
 
+                if char1 in WORD:
+                    print('\nПравильно!')
+
+                    right_list.append(char1)
+                    print(print_word(*WORD, char=char1, lst=right_list).replace('', ' ').strip())
+
+                    if print_word(*WORD, char=char1, lst=right_list) == WORD:
+                        print('\nПоздравляю! Ты победил!\nУгадывай новое слово!\n')
+                        words_list.remove(WORD)
+                        WORD = words_list[randint(0,len(words_list) - 1)]
+                        right_list = []
+                        nm -= 1
+                        if nm != -1:
+                            main_game(nm)
+                        else:
+                            break
+                        break
+
+                else:
+                    l -= 1
+                    print('\nНеправильно!\nОсталось {} попыток...\n'.format(l))
+                    print(print_word(*WORD, lst=right_list).replace('', ' ').strip())
             else:
+                print('\nНЕОБХОДИМО ВВЕСТИ СИМВОЛ!!!\nМинус одна попытка.')
                 l -= 1
-                print('\nНеправильно!\nОсталось {} попыток...\n'.format(l))
-                print(print_word(*WORD, lst=right_list).replace('', ' ').strip())
         else:
-            print('\nНЕОБХОДИМО ВВЕСТИ СИМВОЛ!!!\nМинус одна попытка.')
-            l -= 1
-    else:
-        print('\nВы проиграли...\nПраильное слово было: {}'.format(WORD))
-        break
+            print('\nВы проиграли...\nПравильное слово было: {}'.format(WORD))
+            break
+
+main_game(k)
 
